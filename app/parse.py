@@ -21,7 +21,7 @@ def get_quotes_from_page(soup: Tag) -> list[Quote]:
         text = quote_div.find("span", class_="text").get_text(strip=True)
         author = quote_div.find("small", class_="author").get_text(strip=True)
         tags = [
-            tag.get_text(strip=True) 
+            tag.get_text(strip=True)
             for tag in quote_div.find_all("a", class_="tag")
         ]
         quotes.append(Quote(text=text, author=author, tags=tags))
@@ -30,14 +30,17 @@ def get_quotes_from_page(soup: Tag) -> list[Quote]:
 
 
 def write_quotes_to_csv(quotes: list[Quote], output_csv_path: str) -> None:
-    with open(output_csv_path, mode="w", newline="", encoding="utf-8") as csvfile:
+    with open(
+            output_csv_path, mode="w",
+            newline="", encoding="utf-8"
+        ) as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["text", "author", "tags"])
         for quote in quotes:
             writer.writerow([quote.text, quote.author, ", ".join(quote.tags)])
 
 
-def main(output_csv_path: str):
+def main(output_csv_path: str) -> None:
     url = BASE_URL
     quotes: list[Quote] = []
 
