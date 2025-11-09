@@ -1,4 +1,5 @@
 import csv
+import time
 from dataclasses import dataclass
 from bs4 import BeautifulSoup, Tag
 import requests
@@ -56,6 +57,7 @@ def main(output_csv_path: str) -> None:
 
         next_page = next_button.find("a")["href"]
         url = BASE_URL + next_page
+        time.sleep(1)  # Be polite and avoid overwhelming the server
 
     write_quotes_to_csv(quotes, output_csv_path)
 
