@@ -1,6 +1,6 @@
 import csv
-from dataclasses import dataclass, fields, astuple
-from bs4 import BeautifulSoup
+from dataclasses import dataclass
+from bs4 import BeautifulSoup, Tag
 import requests
 
 
@@ -14,14 +14,15 @@ class Quote:
 BASE_URL = "https://quotes.toscrape.com"
 
 
-def get_quotes_from_page(soup) -> list[Quote]:
+def get_quotes_from_page(soup: Tag) -> list[Quote]:
     quotes = []
 
     for quote_div in soup.find_all("div", class_="quote"):
         text = quote_div.find("span", class_="text").get_text(strip=True)
         author = quote_div.find("small", class_="author").get_text(strip=True)
         tags = [
-            tag.get_text(strip=True) for tag in quote_div.find_all("a", class_="tag")
+            tag.get_text(strip=True) 
+            for tag in quote_div.find_all("a", class_="tag")
         ]
         quotes.append(Quote(text=text, author=author, tags=tags))
 
