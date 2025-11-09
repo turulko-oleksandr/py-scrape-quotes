@@ -31,9 +31,9 @@ def get_quotes_from_page(soup: Tag) -> list[Quote]:
 
 def write_quotes_to_csv(quotes: list[Quote], output_csv_path: str) -> None:
     with open(
-            output_csv_path, mode="w",
-            newline="", encoding="utf-8"
-        ) as csvfile:
+        output_csv_path, mode="w",
+        newline="", encoding="utf-8"
+    ) as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["text", "author", "tags"])
         for quote in quotes:
